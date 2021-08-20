@@ -1,13 +1,15 @@
 import React from 'react'
 import {AppBar, Toolbar, IconButton, Badge, MenuItem, Menu, Typography} from '@material-ui/core'
 import {ShoppingCart} from '@material-ui/icons'
-import {Link} from 'react-router-dom'
+import {Link, useLocation} from 'react-router-dom'
 
 import logo from '../../assets/images.png'
 import useStyles from './styles'
 
 const Navbar =({totalItems}) => {
     const classes = useStyles();
+    const location = useLocation();
+
     return (
         <>
             <AppBar position='fixed' className={classes.appBar} color ='inHerit'>
@@ -17,7 +19,8 @@ const Navbar =({totalItems}) => {
                         مای مارکت
                     </Typography>
                     <div className={classes.grow} />
-                    <div className={classes.button}>
+
+                    {location.pathname==='/' && (<div className={classes.button}>
                         <Link to='/cart'></Link>
                         <IconButton component={Link} to='/cart' aria-label='Show cart items' color='inherit'>
                             <Badge badgeContent={totalItems} color='secondary'>
@@ -25,6 +28,7 @@ const Navbar =({totalItems}) => {
                             </Badge>
                         </IconButton>
                     </div>
+                    )}
                 </Toolbar>
             </AppBar>
         </>
