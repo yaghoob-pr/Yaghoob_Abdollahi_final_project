@@ -1,0 +1,8 @@
+@font-face {
+    src: url(assets/fonts/IranianSans.ttf);
+    font-family: IranianSans;
+}
+
+.font-is {
+    font-family: IranianSans !important;
+}

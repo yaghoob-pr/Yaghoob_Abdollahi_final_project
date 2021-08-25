@@ -1,16 +1,32 @@
 import React, {useState, useEffect} from 'react'
 import {commerce} from './lib/commerce'
-import {Products, Navbar, Cart, Checkout} from './components'
+import {Products, Navbar, Cart, Checkout, Categories} from './components'
 import {BrowserRouter as Router, Switch, Route} from 'react-router-dom'
+import "./App.css";
+
 
 const App = () => {
     const [products, setProducts] = useState(null)
     const [cart, setCart] = useState(null)
+    const [categories, setCategories] = useState(null)
 
     const fetchPtroducts = async() => {
         const {data} = await commerce.products.list();
 
+
         setProducts(data);
+    }
+
+    const fetchCategories = async() => {
+      const data = await commerce.categories.list();
+//commerce.categories.list().then((category) => console.log(category));
+
+      console.log(11)
+      setCategories(data.data);
+      if(data);
+      console.log(data.data[0])
+      console.log(data.data);
+
     }
 
     const fetchCart = async() => {
@@ -34,19 +50,21 @@ const App = () => {
     }
 
     const handleEmptyCart = async () => {
-        const {cart} = await commerce.cart.emty();
+        const {cart} = await commerce.cart.emtpy();
         setCart(cart);
     }
     
     useEffect(()=> {
         fetchPtroducts();
-        fetchCart()
+        fetchCart();
+        fetchCategories();
     }, [])
-    console.log(cart);
+
     if(!cart || !products) return (<span>در حال بارگزاری...</span> )
+
     return (
       <Router>
-        <Navbar totalItems={cart.total_items} />
+        <Navbar className='font-is' totalItems={cart.total_items} />
         <div>
           <Route exact path="/">
             <Products products={products} onAddToCart={handleAddToCart} />
@@ -60,7 +78,10 @@ const App = () => {
             />
           </Route>
           <Route exact path='/checkout'>
-            <Chckout/>
+            <Checkout cart={cart}/>
+          </Route>
+          <Route exact path='/categories'>
+            <Categories categories={categories}/>
           </Route>
         </div>
       </Router>

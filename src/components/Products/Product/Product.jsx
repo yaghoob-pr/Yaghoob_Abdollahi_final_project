@@ -8,7 +8,7 @@ const Product = ({product, onAddToCart}) => {
     const classes =useStyles();
 
     return (
-        <Card className={classes.root}>
+        <Card  className={classes.root}>
             <CardMedia className={classes.media} image={product.media.source} title={product.name}/>
             <CardContent>
                 <div className={classes.cardContent}>
