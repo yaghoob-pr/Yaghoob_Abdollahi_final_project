@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import { commerce } from './lib/commerce'
-import { Products, Navbar, Cart, Checkout, Categories, ProductDetail } from './components'
+import { Products, Navbar, Cart, Checkout, Categories, ProductDetail, Footer} from './components'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
 import "./App.css";
 
@@ -93,6 +93,8 @@ const App = () => {
         </Route>
 
       </div>
+
+      <Footer/>
     </Router>
   );
 }

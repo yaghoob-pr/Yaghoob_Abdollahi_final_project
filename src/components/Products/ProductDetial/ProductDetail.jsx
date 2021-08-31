@@ -2,7 +2,7 @@ import { Typography, Grid, Card, CardMedia, CardContent, CssBaseline, spacing } 
 import React from 'react'
 import useStyles from './styles'
 import { Button } from '@material-ui/core'
-const ProductDetail = ({ match, products }) => {
+const ProductDetail = ({ match, products, onAddToCart }) => {
     const classes = useStyles();
     if (0)
         return (<>ll</>)
@@ -38,7 +38,7 @@ const ProductDetail = ({ match, products }) => {
                                         </Typography>
                                     </Grid>
                                     <Grid className={classes.center} xs={12} sm={6} md={6} lg={6} justifyContent="center">
-                                        <Button variant='contained' style={{ background: '#00e676' }} >اضافه کردن به سبد خرید</Button>
+                                        <Button variant='contained' style={{ background: '#00e676' }} onClick={() => onAddToCart(product.id, 1)} >اضافه کردن به سبد خرید</Button>
                                     </Grid>
 
                                 </Grid>
