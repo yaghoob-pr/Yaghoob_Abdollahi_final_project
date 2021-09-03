@@ -18,4 +18,7 @@ export default makeStyles(() => ({
     display: "flex",
     justifyContent: "space-between",
   },
+  grow: {
+    flex: 1,
+  }
 }));

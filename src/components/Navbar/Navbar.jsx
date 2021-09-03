@@ -76,6 +76,10 @@ const Navbar =({totalItems}) => {
 
             <div className={classes.grow} />
 
+            <Button component={Link} to = "/login">
+              ورود
+              {console.log(',,,,,')}
+              </Button>
             {location.pathname === "/" && (
               <div className={classes.button}>
                 <Link to="/cart"></Link>

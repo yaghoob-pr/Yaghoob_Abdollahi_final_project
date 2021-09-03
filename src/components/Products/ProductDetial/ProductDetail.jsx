@@ -13,8 +13,8 @@ const ProductDetail = ({ match, products, onAddToCart }) => {
     return (
         <>
             <CssBaseline />
-            <main>
-                <div className={classes.toolbar} />
+            <main >
+                <div className={classes.toolbar}/>
                 <Card className={classes.root} sm={12} lg={12}>
                     <Grid container justify='center' spacing={5}>
                         <Grid xs={12} sm={12} md={6} lg={6}>

@@ -8,10 +8,9 @@ export default makeStyles((theme) => ({
     padding: theme.spacing(3),
   },
   root: {
-    flexGrow: 1,
-  },
-  root: {
     maxWidth: "100%",
+    flexGrow: 1,
+    height: '60vh'
   },
   media: {
     height: 0,

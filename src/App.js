@@ -1,14 +1,24 @@
 import React, { useState, useEffect } from 'react'
 import { commerce } from './lib/commerce'
-import { Products, Navbar, Cart, Checkout, Categories, ProductDetail, Footer} from './components'
+import { Products, Navbar, Cart, Checkout, Categories, ProductDetail, Footer } from './components'
 import { BrowserRouter as Router, Switch, Route } from 'react-router-dom'
+import { Redirect } from 'react-router-dom';
+import { connect } from 'react-redux';
+
+import { history } from './redux/helpers/history';
+import { alertActions } from './redux/actions/alert.actions';
+import { PrivateRoute } from './components/PrivateRoute/PrivateRoute';
+import { HomePage } from './components/HomePage/HomePage';
+import { LoginPage } from './components/LoginPage/LoginPage';
+import { RegisterPage } from './components/RegisterPage/RegisterPage';
 import "./App.css";
 
 
-const App = () => {
+const App = (props) => {
   const [products, setProducts] = useState(null)
   const [cart, setCart] = useState(null)
   const [categories, setCategories] = useState(null)
+  const { alert } = props;
 
   const fetchPtroducts = async () => {
     const { data } = await commerce.products.list();
@@ -58,16 +68,27 @@ const App = () => {
     fetchPtroducts();
     fetchCart();
     fetchCategories();
+
+    history.listen((location, action) => {
+      // clear alert on location change
+      props.clearAlerts();
+    });
   }, [])
 
   if (!cart || !products) return (<span>در حال بارگزاری...</span>)
 
   return (
-    <Router>
+    <Router history={history}>
       <Navbar className='font-is' totalItems={cart.total_items} />
+
+
+      {alert.message &&
+            <div style={{marginTop: '80px'}} className={`alert ${alert.type}`}>{alert.message}</div>
+          }
       <div>
         <Route path='/categories'
         >
+
           <Categories categories={categories} />
         </Route>
         <Route exact path="/">
@@ -84,7 +105,8 @@ const App = () => {
         <Route exact path='/checkout'>
           <Checkout cart={cart} />
         </Route>
-
+        <Route path="/login" component={LoginPage} />
+        <Route path="/register" component={RegisterPage} />
 
         <Route exact path="/menu/:productId"
           component={({ match }) => (<ProductDetail match={match}
@@ -93,10 +115,33 @@ const App = () => {
         </Route>
 
       </div>
-
-      <Footer/>
+      <div className='fgrow' />
+      <Footer />
+     {alert.message &&
+      <div style={{marginTop: '80px'}} className={`alert ${alert.type}`}>{alert.message}</div>
+    }
     </Router>
   );
+
+
+
+
 }
 
+function mapState(state) {
+  const { alert } = state;
+  return { alert };
+}
+
+const actionCreators = {
+  clearAlerts: alertActions.clear
+};
+
+const connectedApp = connect(mapState, actionCreators)(App);
+export { connectedApp as App };
+
 export default App
+
+/***************************8 */
+
+

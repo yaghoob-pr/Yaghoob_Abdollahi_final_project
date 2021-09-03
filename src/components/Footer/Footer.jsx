@@ -10,13 +10,15 @@ import Divider from '@material-ui/core/Divider';
 import InboxIcon from '@material-ui/icons/Inbox';
 import DraftsIcon from '@material-ui/icons/Drafts';
 import { Typography } from '@material-ui/core'
-
+import './Footer.css'
 const useStyles = makeStyles((theme) => ({
     root: {
         width: '100%',
         maxWidth: 360,
         backgroundColor: theme.palette.background.paper,
-    },
+    },footer: {
+        marginBottom: 'auto',
+      }
 }));
 
 function ListItemLink(props) {
@@ -29,9 +31,9 @@ export const Footer = () => {
     return (
 
 
-        <footer>
+        <footer  >
 
-            <Grid container spacing={10}>
+            <Grid  container spacing={10}>
             <Grid item xs={12} md={4}>
                 <List component="nav" aria-label="main folders">
                     <ListSubheader color='inherit'>
